@@ -1,7 +1,9 @@
-package com.example.movie_theater.models;
+package com.example.movie_theater.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -23,4 +25,10 @@ public class User {
 
     @Column(nullable = false)
     private String role; // ADMIN, CUSTOMER
+
+    @Column(nullable = false)
+    private boolean enabled = true; // 🔥 Mặc định tài khoản hoạt động
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
