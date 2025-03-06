@@ -1,5 +1,7 @@
-package com.example.movie_theater.models;
+package com.example.movie_theater.entities;
 
+import java.time.LocalDateTime;
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,4 +23,8 @@ public class Movie {
     private String director;
     private int duration; // Thời lượng (phút)
     private String description;
+    private LocalDateTime releaseDate;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Showtime> showtimes = new ArrayList<>();
 }

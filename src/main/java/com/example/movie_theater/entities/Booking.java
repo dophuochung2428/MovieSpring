@@ -1,7 +1,11 @@
-package com.example.movie_theater.models;
+package com.example.movie_theater.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")
@@ -20,13 +24,16 @@ public class Booking {
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_id", nullable = false)
-    private Seat seat;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingSeat> bookingSeats = new ArrayList<>();
 
     @Column(nullable = false)
     private double price;
 
     @Column(nullable = false)
-    private String bookingTime; // "YYYY-MM-DD HH:MM:SS"
+    private LocalDateTime bookingTime = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus bookingStatus = BookingStatus.PENDING;
 }
