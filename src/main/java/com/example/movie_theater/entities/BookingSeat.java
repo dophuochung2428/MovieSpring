@@ -19,4 +19,10 @@ public class BookingSeat {
     @ManyToOne
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
+
+    public BookingSeat(Booking booking, Seat seat) {
+        this.booking = booking;
+        this.seat = seat;
+    }
+
 }
