@@ -14,7 +14,7 @@ public class BookingDTO {
     private String username;
     private LocalDateTime showtime;
     private List<String> seatNumbers;
-    private double price;
+    private long price;
     private LocalDateTime bookingTime;
     private BookingStatus bookingStatus;
 }
