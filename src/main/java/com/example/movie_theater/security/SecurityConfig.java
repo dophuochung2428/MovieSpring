@@ -38,7 +38,8 @@ public class SecurityConfig {
                 .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**"
+                        .requestMatchers("/api/auth/**",
+                                "/api/payments/payment-callback"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET).authenticated()
                         .anyRequest().authenticated()
