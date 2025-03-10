@@ -13,4 +13,11 @@ public interface BookingService {
     Booking createBooking(Booking booking);
     void deleteBooking(Long id);
     boolean isSeatBooked(Long seatId, Long showtimeId);
+<<<<<<< Updated upstream
+=======
+
+    void updateBookingStatus(Long bookingId, String newStatus);
+
+    String placeBooking(Long bookingId);
+>>>>>>> Stashed changes
 }
