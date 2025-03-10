@@ -3,9 +3,9 @@ spring:
     name: movie-theater
 
   datasource:
-    url: jdbc:mysql://localhost:3306/movie_booking?useSSL=false&serverTimezone=UTC
-    username: root
-    password:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -15,7 +15,7 @@ spring:
     show-sql: true
 
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 logging:
   level:
