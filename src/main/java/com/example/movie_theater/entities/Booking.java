@@ -28,7 +28,7 @@ public class Booking {
     private List<BookingSeat> bookingSeats = new ArrayList<>();
 
     @Column(nullable = false)
-    private double price;
+    private long price;
 
     @Column(nullable = false)
     private LocalDateTime bookingTime = LocalDateTime.now();
@@ -36,4 +36,6 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus bookingStatus = BookingStatus.PENDING;
+
+    private LocalDateTime expirationTime;
 }

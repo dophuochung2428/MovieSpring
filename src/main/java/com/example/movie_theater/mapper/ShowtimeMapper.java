@@ -14,7 +14,8 @@ public class ShowtimeMapper {
                 showtime.getHall().getId(),
                 showtime.getHall().getName(),
                 showtime.getStartTime(),
-                showtime.getStartTime().plusMinutes(showtime.getMovie().getDuration())
+                showtime.getStartTime().plusMinutes(showtime.getMovie().getDuration()),
+                showtime.getBasePrice()
         );
     }
     public static Showtime toEntity(ShowtimeDTO dto, Movie movie, Hall hall) {
@@ -22,7 +23,8 @@ public class ShowtimeMapper {
                 dto.getId(),
                 movie,
                 hall,
-                dto.getStartTime()
+                dto.getStartTime(),
+                dto.getBasePrice()
         );
     }
 }

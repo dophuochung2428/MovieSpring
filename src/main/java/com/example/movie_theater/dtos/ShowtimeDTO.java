@@ -16,5 +16,6 @@ public class ShowtimeDTO {
     private String hallName;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private long basePrice;
 }
 

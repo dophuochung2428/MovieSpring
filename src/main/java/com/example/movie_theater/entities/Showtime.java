@@ -26,4 +26,7 @@ public class Showtime {
 
     @Column(nullable = false)
     private LocalDateTime startTime; // Format: "YYYY-MM-DD HH:MM:SS"
+
+    @Column(nullable = false)
+    private long basePrice;
 }

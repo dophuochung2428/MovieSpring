@@ -1,8 +1,6 @@
 package com.example.movie_theater.services.impl;
 
-<<<<<<< Updated upstream
-import com.example.movie_theater.entities.Payment;
-=======
+
 import com.example.movie_theater.config.Config;
 import com.example.movie_theater.dtos.PaymentDTO;
 import com.example.movie_theater.dtos.PaymentInfoDTO;
@@ -13,28 +11,32 @@ import com.example.movie_theater.entities.Payment;
 import com.example.movie_theater.entities.PaymentStatus;
 import com.example.movie_theater.mapper.PaymentMapper;
 import com.example.movie_theater.repositories.BookingRepository;
->>>>>>> Stashed changes
+
 import com.example.movie_theater.repositories.PaymentRepository;
 import com.example.movie_theater.services.PaymentService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< Updated upstream
+
 import java.util.Optional;
-=======
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
->>>>>>> Stashed changes
+
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
     public Payment processPayment(Payment payment) {
@@ -45,11 +47,11 @@ public class PaymentServiceImpl implements PaymentService {
     public Optional<Payment> getPaymentByBooking(Long bookingId) {
         return paymentRepository.findByBookingId(bookingId);
     }
-<<<<<<< Updated upstream
-=======
+
 
     @Override
     public PaymentInfoDTO createPayment(HttpServletRequest req, long price, long bookingId) throws UnsupportedEncodingException {
+
         long amount = price * 100;
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = Config.getIpAddress(req);
@@ -66,6 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
+
         vnp_Params.put("vnp_OrderInfo", "Thanh toán đơn hàng: " + vnp_TxnRef + " - BookingID: " + bookingId);
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payments/payment-callback");
@@ -85,7 +88,9 @@ public class PaymentServiceImpl implements PaymentService {
 
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
 
+
         PaymentInfoDTO paymentDTO = new PaymentInfoDTO();
+
         paymentDTO.setStatus("Ok");
         paymentDTO.setMessage("Successfully");
         paymentDTO.setURL(paymentUrl);
@@ -94,6 +99,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+
     public PaymentDTO savePayment(PaymentDTO paymentDTO) {
         Booking booking = bookingRepository.findById(paymentDTO.getBookingId())
                 .orElseThrow();
@@ -102,6 +108,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+
     public String buildQuery(Map<String, String> vnp_Params) throws UnsupportedEncodingException {
         List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
         Collections.sort(fieldNames);
@@ -172,5 +179,4 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
 
->>>>>>> Stashed changes
 }

@@ -1,23 +1,28 @@
 package com.example.movie_theater.controllers.user;
 
-<<<<<<< Updated upstream
-=======
-import com.example.movie_theater.dtos.PaymentDTO;
+
 import com.example.movie_theater.dtos.PaymentInfoDTO;
+import com.example.movie_theater.config.Config;
+import com.example.movie_theater.dtos.PaymentDTO;
 import com.example.movie_theater.dtos.TransactionStatusDTO;
->>>>>>> Stashed changes
 import com.example.movie_theater.entities.Payment;
 import com.example.movie_theater.services.PaymentService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< Updated upstream
+
 import java.util.Optional;
-=======
 import java.io.UnsupportedEncodingException;
 import java.util.*;
->>>>>>> Stashed changes
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 
 @RestController
 @RequestMapping("/api/payments")
@@ -34,8 +39,7 @@ public class PaymentController {
     public ResponseEntity<Optional<Payment>> getPaymentByBooking(@PathVariable Long bookingId) {
         return ResponseEntity.ok(paymentService.getPaymentByBooking(bookingId));
     }
-<<<<<<< Updated upstream
-=======
+
 
     @PostMapping("/createPaymentByVnPay/{price}/{bookingId}")
     public ResponseEntity<?> createPaymentByVnPay(HttpServletRequest req, @PathVariable long price, @PathVariable long bookingId) throws UnsupportedEncodingException {
@@ -44,10 +48,12 @@ public class PaymentController {
     }
 
     //Trang return về bên config
+
     @GetMapping("/paymentInfo")
     public ResponseEntity<?> transaction(
             @RequestParam("vnp_ResponseCode") String responseCode) {
         TransactionStatusDTO transactionStatusDTO = paymentService.processTransaction(responseCode);
+
 
         return ResponseEntity.ok(transactionStatusDTO);
     }
@@ -74,6 +80,4 @@ public class PaymentController {
         return parts.length > 1 ? parts[1] : null;
     }
 
-
->>>>>>> Stashed changes
 }
