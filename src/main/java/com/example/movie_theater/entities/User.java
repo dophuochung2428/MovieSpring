@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class User {
@@ -20,11 +23,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(nullable = false)
-    private String role; // ADMIN, CUSTOMER
+    private String email;
 
     @Column(nullable = false)
     private boolean enabled = true; // 🔥 Mặc định tài khoản hoạt động

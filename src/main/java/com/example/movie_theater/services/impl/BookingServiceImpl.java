@@ -1,9 +1,12 @@
 package com.example.movie_theater.services.impl;
 
 import com.example.movie_theater.dtos.BookingDTO;
+
 import com.example.movie_theater.dtos.BookingHoldRequestDTO;
-import com.example.movie_theater.dtos.UserDTO;
 import com.example.movie_theater.entities.*;
+
+import com.example.movie_theater.dtos.UserDTO;
+
 import com.example.movie_theater.mapper.BookingMapper;
 import com.example.movie_theater.mapper.UserMapper;
 import com.example.movie_theater.repositories.BookingRepository;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class BookingServiceImpl implements BookingService {
     @Autowired
     private  BookingRepository bookingRepository;
@@ -106,6 +110,16 @@ public class BookingServiceImpl implements BookingService {
     public boolean isSeatBooked(Long seatId, Long showtimeId) {
         return false;
     }
+  
+    @Override
+    public void updateBookingStatus(Long bookingId, String newStatus) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(()-> new RuntimeException("Booking not found"));
+        BookingStatus bookingStatus = BookingStatus.valueOf(newStatus.toUpperCase());
+        booking.setBookingStatus(bookingStatus);
+        bookingRepository.save(booking);
+    }
+
 
     @Override
     public String placeBooking(Long bookingId) {
@@ -131,4 +145,5 @@ public class BookingServiceImpl implements BookingService {
 //        // Tạo URL thanh toán VNPay
 //        return vnpayService.createPaymentUrl(booking);
 //    }
+
 }

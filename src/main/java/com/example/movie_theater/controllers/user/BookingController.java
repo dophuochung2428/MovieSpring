@@ -3,6 +3,7 @@ package com.example.movie_theater.controllers.user;
 import com.example.movie_theater.dtos.BookingDTO;
 import com.example.movie_theater.dtos.BookingHoldRequestDTO;
 import com.example.movie_theater.dtos.PaymentDTO;
+import com.example.movie_theater.dtos.PaymentInfoDTO;
 import com.example.movie_theater.entities.Booking;
 import com.example.movie_theater.services.BookingService;
 import com.example.movie_theater.services.PaymentService;
@@ -56,7 +57,8 @@ public class BookingController {
             BookingDTO bookingDTO = bookingService.holdSeats(holdRequestDTO, userId);
             String paymentUrl;
             try{
-                PaymentDTO paymentDTO = paymentService.createPayment(req, bookingDTO.getPrice());
+
+                PaymentInfoDTO paymentDTO = paymentService.createPayment(req, bookingDTO.getPrice(), bookingDTO.getId());
                 paymentUrl = paymentDTO.getURL();
             } catch (UnsupportedEncodingException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

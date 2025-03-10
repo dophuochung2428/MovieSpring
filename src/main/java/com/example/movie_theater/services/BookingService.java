@@ -17,5 +17,10 @@ public interface BookingService {
     void cancelExpiredBookings();
     void deleteBooking(Long id);
     boolean isSeatBooked(Long seatId, Long showtimeId);
+
+
+    void updateBookingStatus(Long bookingId, String newStatus);
+
     String placeBooking(Long bookingId);
+
 }

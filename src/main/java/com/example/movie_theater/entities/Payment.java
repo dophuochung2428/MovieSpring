@@ -17,8 +17,6 @@ public class Payment {
     @JoinColumn(name = "booking_id", nullable = false, unique = true) // 🔥 Một Booking chỉ có một Payment
     private Booking booking;
 
-    @Column(nullable = false)
-    private double amount; // 🔥 Số tiền thanh toán (nên lấy từ `Booking.price`)
 
     @Column(nullable = false)
     private String paymentMethod; // 🔥 (CREDIT_CARD, MOMO, CASH, PAYPAL...)
@@ -31,6 +29,9 @@ public class Payment {
     private LocalDateTime createdAt; // 🔥 Thời gian tạo Payment
 
     private LocalDateTime updatedAt; // 🔥 Thời gian cập nhật Payment
+
+    @Column(unique = true)
+    private String transactionId;
 
     @PrePersist
     protected void onCreate() {
