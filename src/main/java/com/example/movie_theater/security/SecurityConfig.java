@@ -39,7 +39,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**",
-                                "/api/payments/payment-callback"
+                                "/api/payments/payment-callback",
+
+                                // Cho phép Swagger UI truy cập không cần auth
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET).authenticated()
                         .anyRequest().authenticated()
