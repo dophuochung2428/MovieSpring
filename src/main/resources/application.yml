@@ -31,5 +31,6 @@ springdoc:
 logging:
   level:
     org.springframework: INFO
+    org.springframework.security: DEBUG
     hibernate.SQL: DEBUG
     hibernate.type.descriptor.sql.BasicBinder: TRACE
