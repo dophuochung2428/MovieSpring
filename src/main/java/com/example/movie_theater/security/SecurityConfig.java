@@ -42,7 +42,7 @@ public class SecurityConfig {
                                 "/api/payments/payment-callback",
 
                                 // Cho phép Swagger UI truy cập không cần auth
-                                "/v3/api-docs/**",
+//                                "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
