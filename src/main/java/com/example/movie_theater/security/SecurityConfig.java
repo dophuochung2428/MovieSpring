@@ -42,7 +42,9 @@ public class SecurityConfig {
                                 "/api/payments/payment-callback",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET).authenticated()
                         .anyRequest().authenticated()
