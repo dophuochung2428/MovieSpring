@@ -19,6 +19,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -34,6 +36,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+                .cors(cors -> cors.configurationSource(request -> {
+                    var config = new org.springframework.web.cors.CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:5173")); // Cho phép frontend gọi API
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Các phương thức HTTP
+                    config.setAllowCredentials(true); // Cho phép gửi cookies hoặc token
+                    config.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Cho phép các header
+                    return config;
+                }))
                 .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
