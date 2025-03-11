@@ -26,6 +26,7 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
     disable-swagger-default-url: true
+  packages-to-scan: com.example.movie_theater
 
 logging:
   level:
