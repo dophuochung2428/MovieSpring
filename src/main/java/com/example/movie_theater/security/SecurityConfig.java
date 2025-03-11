@@ -40,8 +40,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**",
                                 "/api/payments/payment-callback",
-
-                                // Cho phép Swagger UI truy cập không cần auth
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
