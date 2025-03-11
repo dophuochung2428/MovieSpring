@@ -41,7 +41,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**",
                                 "/api/payments/payment-callback",
                                 "/v3/api-docs/**",
+                                "/v3/api-docs**",
                                 "/swagger-ui/**",
+                                "/swagger-ui**",
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
                                 "/webjars/**"
