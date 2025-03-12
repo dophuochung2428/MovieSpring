@@ -1,5 +1,6 @@
 package com.example.movie_theater.controllers.user;
 
+import com.example.movie_theater.dtos.UserDTO;
 import com.example.movie_theater.entities.User;
 import com.example.movie_theater.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,14 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id){
-        return ResponseEntity.ok(userService.getUserById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        if (user == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(userService.saveUser(user));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
-        if (user == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        User existingUser = userService.getUserById(id);
-        existingUser.setPassword(user.getPassword());
-        existingUser.setUsername(user.getUsername());
-        existingUser.setEmail(user.getEmail());
-        return ResponseEntity.ok(userService.saveUser(existingUser));
-    }
-
     @GetMapping("/{username}")
-    public Optional<User> getUserByUsername(@PathVariable String username) {
-        return userService.findByUsername(username);
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findByUsername(username));
+    }
+
+    @PutMapping("/{id}/disable")
+    public ResponseEntity<String> disableUser(@PathVariable Long id) {
+        userService.disableUser(id);
+        return ResponseEntity.ok("User has been disabled successfully.");
     }
 }
