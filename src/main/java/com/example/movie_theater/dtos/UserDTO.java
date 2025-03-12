@@ -3,6 +3,7 @@ package com.example.movie_theater.dtos;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,5 +16,8 @@ public class UserDTO {
     private String role;
     private boolean enabled;
     private LocalDateTime createdAt;
+    private String fullName;
+    private String gender;
+    private LocalDate dateOfBirth;
 }
 

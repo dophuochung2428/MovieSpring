@@ -3,11 +3,13 @@ package com.example.movie_theater.controllers;
 import com.example.movie_theater.dtos.AuthResponseDTO;
 import com.example.movie_theater.dtos.LoginDTO;
 import com.example.movie_theater.dtos.RegisterDTO;
+import com.example.movie_theater.entities.GenderStatus;
 import com.example.movie_theater.entities.Role;
 import com.example.movie_theater.entities.User;
 import com.example.movie_theater.repositories.RoleRepository;
 import com.example.movie_theater.repositories.UserRepository;
 import com.example.movie_theater.security.JWTGenerator;
+import com.example.movie_theater.services.AuthService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,42 +33,18 @@ import java.util.Collections;
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JWTGenerator jwtGenerator;
+    private AuthService authService;
 
     @PostMapping("/register")
     @Transactional
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
-        if(userRepository.existsByUsername(registerDTO.getUsername())){
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
-        }
-        User user = new User();
-        user.setUsername(registerDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-        user.setCreatedAt(LocalDateTime.now());
-        user.setEmail(registerDTO.getMail());
-
-        Role role = roleRepository.findByName("ROLE_USER").get();
-        user.setRole(role);
-
-        userRepository.save(user);
-        return new ResponseEntity<>("User registered success", HttpStatus.OK);
+        String response = authService.register(registerDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),
-                loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtGenerator.generatorToken(authentication);
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+        AuthResponseDTO response = authService.login(loginDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
