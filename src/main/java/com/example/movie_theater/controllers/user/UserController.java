@@ -2,6 +2,7 @@ package com.example.movie_theater.controllers.user;
 
 import com.example.movie_theater.dtos.UserDTO;
 import com.example.movie_theater.entities.User;
+import com.example.movie_theater.security.JWTGenerator;
 import com.example.movie_theater.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,12 @@ public class UserController {
     public ResponseEntity<String> disableUser(@PathVariable Long id) {
         userService.disableUser(id);
         return ResponseEntity.ok("User has been disabled successfully.");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser(@RequestHeader("Authorization") String token) {
+        token = token.replace("Bearer ", "");
+        UserDTO userDTO = userService.getUserFromToken(token);
+        return ResponseEntity.ok(userDTO);
     }
 }

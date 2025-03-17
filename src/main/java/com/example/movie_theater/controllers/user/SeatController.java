@@ -1,5 +1,6 @@
 package com.example.movie_theater.controllers.user;
 
+import com.example.movie_theater.dtos.SeatDTO;
 import com.example.movie_theater.entities.Seat;
 import com.example.movie_theater.services.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class SeatController {
     }
 
     @GetMapping("/hall/{hallId}")
-    public ResponseEntity<List<Seat>> getSeatsByHall(@PathVariable Long hallId) {
+    public ResponseEntity<List<SeatDTO>> getSeatsByHall(@PathVariable Long hallId) {
         return ResponseEntity.ok(seatService.getSeatByHall(hallId));
     }
     @PostMapping

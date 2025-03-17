@@ -1,8 +1,10 @@
 package com.example.movie_theater.services.impl;
 
+import com.example.movie_theater.dtos.SeatDTO;
 import com.example.movie_theater.entities.Hall;
 import com.example.movie_theater.entities.Seat;
 import com.example.movie_theater.entities.SeatTemplate;
+import com.example.movie_theater.repositories.HallRepository;
 import com.example.movie_theater.repositories.SeatRepository;
 import com.example.movie_theater.repositories.SeatTemplateRepository;
 import com.example.movie_theater.services.SeatService;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SeatServiceImpl implements SeatService {
@@ -17,6 +20,8 @@ public class SeatServiceImpl implements SeatService {
     private  SeatRepository seatRepository;
     @Autowired
     private SeatTemplateRepository seatTemplateRepository;
+    @Autowired
+    private HallRepository hallRepository;
 
 
     @Override
@@ -30,8 +35,16 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<Seat> getSeatByHall(Long hallId) {
-        return  seatRepository.findByHallId(hallId);
+    public List<SeatDTO> getSeatByHall(Long hallId) {
+        Hall hall = hallRepository.findById(hallId).orElseThrow();
+        return  hall.getSeats().stream()
+                .map(seat -> new SeatDTO(
+                        seat.getId(),
+                        seat.getSeatNumber(),
+                        seat.getSeatTemplate().getSeatType(),
+                        seat.getSeatTemplate().getId()
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override
