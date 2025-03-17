@@ -4,19 +4,20 @@ import com.example.movie_theater.dtos.UserDTO;
 import com.example.movie_theater.entities.User;
 import com.example.movie_theater.mapper.UserMapper;
 import com.example.movie_theater.repositories.UserRepository;
+import com.example.movie_theater.security.JWTGenerator;
 import com.example.movie_theater.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JWTGenerator jwtGenerator;
 
     @Override
     public List<User> getAllUsers() {
@@ -38,5 +39,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(false);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDTO getUserFromToken(String token) {
+        String username = jwtGenerator.getUsernameFromJWT(token);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return UserMapper.toDTO(user);
     }
 }

@@ -11,4 +11,6 @@ public interface UserService {
     List<User> getAllUsers();
     UserDTO findByUsername(String name);
     void disableUser(Long id);
+
+    UserDTO getUserFromToken(String token);
 }
