@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import java.io.UnsupportedEncodingException;
@@ -74,12 +76,15 @@ public class PaymentServiceImpl implements PaymentService {
         vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payments/payment-callback");
 
         // Set thời gian
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        vnp_Params.put("vnp_CreateDate", formatter.format(cld.getTime()));
+        // Set thời gian theo múi giờ Việt Nam
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        vnp_Params.put("vnp_CreateDate", now.format(formatter));
 
-        cld.add(Calendar.MINUTE, 15);
-        vnp_Params.put("vnp_ExpireDate", formatter.format(cld.getTime()));
+
+        // Thời gian hết hạn (cộng thêm 15 phút)
+        ZonedDateTime expireTime = now.plusMinutes(15);
+        vnp_Params.put("vnp_ExpireDate", expireTime.format(formatter));
 
         // Tạo query và hash
         String queryUrl = buildQuery(vnp_Params);
@@ -154,8 +159,13 @@ public class PaymentServiceImpl implements PaymentService {
         //Lưu payment
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime createdAt = LocalDateTime.parse(createDate, formatter);
+//        LocalDateTime createdAt = LocalDateTime.parse(createDate, formatter);
 
+        // Chuyển createDate thành múi giờ Việt Nam
+        ZonedDateTime zonedCreatedAt = LocalDateTime.parse(createDate, formatter)
+                .atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDateTime createdAt = zonedCreatedAt.toLocalDateTime();
+        
         Payment payment = new Payment();
         payment.setCreatedAt(createdAt);
         payment.setPaymentMethod("online");
