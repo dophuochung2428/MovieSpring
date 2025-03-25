@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class MovieTheaterApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(MovieTheaterApplication.class, args);
 		System.out.println("http://localhost:8080/");
 	}

@@ -13,4 +13,6 @@ public interface UserService {
     void disableUser(Long id);
 
     UserDTO getUserFromToken(String token);
+
+    UserDTO findByEmail(String email);
 }

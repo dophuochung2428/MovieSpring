@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,5 +49,11 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return UserMapper.toDTO(user);
+    }
+
+    @Override
+    public UserDTO findByEmail(String email) {
+        return userRepository.findByEmail(email).map(UserMapper::toDTO)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
 }
