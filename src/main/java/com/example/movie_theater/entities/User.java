@@ -2,10 +2,13 @@ package com.example.movie_theater.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -13,7 +16,7 @@ import java.util.List;
 @Data
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,4 +50,11 @@ public class User {
     @Column(nullable = true)
     private LocalDate dateOfBirth;
 
+    @OneToOne(mappedBy = "user")
+    private ForgotPassword forgotPassword;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
 }

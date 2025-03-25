@@ -74,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
         vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payments/payment-callback");
 
         // Set thời gian
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         vnp_Params.put("vnp_CreateDate", formatter.format(cld.getTime()));
 
