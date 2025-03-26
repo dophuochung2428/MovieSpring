@@ -52,7 +52,8 @@ public class PaymentController {
     @GetMapping("/paymentInfo")
     public ResponseEntity<?> transaction(
             @RequestParam("vnp_ResponseCode") String responseCode) {
-        TransactionStatusDTO transactionStatusDTO = paymentService.processTransaction(responseCode);
+        TransactionStatusDTO transactionStatusDTO = paymentService
+                .processTransaction(responseCode);
 
 
         return ResponseEntity.ok(transactionStatusDTO);
