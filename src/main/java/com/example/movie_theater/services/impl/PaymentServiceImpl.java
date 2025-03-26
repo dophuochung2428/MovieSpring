@@ -73,7 +73,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         vnp_Params.put("vnp_OrderInfo", "Thanh toán đơn hàng: " + vnp_TxnRef + " - BookingID: " + bookingId);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payments/payment-callback");
+        vnp_Params.put("vnp_ReturnUrl", "https://moviespring.onrender.com/api/payments/payment-callback");
 
         // Set thời gian
         // Set thời gian theo múi giờ Việt Nam
@@ -165,7 +165,7 @@ public class PaymentServiceImpl implements PaymentService {
         ZonedDateTime zonedCreatedAt = LocalDateTime.parse(createDate, formatter)
                 .atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDateTime createdAt = zonedCreatedAt.toLocalDateTime();
-        
+
         Payment payment = new Payment();
         payment.setCreatedAt(createdAt);
         payment.setPaymentMethod("online");
