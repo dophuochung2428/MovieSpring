@@ -20,7 +20,7 @@ public class Config {
 
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:8080/api/payments/paymentInfo";
+    public static String vnp_ReturnUrl = "http://localhost:5173/api/payments/paymentInfo";
     public static String vnp_TmnCode = "WY1RTEUN";
 
     public static String vnp_Version = "2.1.0";
