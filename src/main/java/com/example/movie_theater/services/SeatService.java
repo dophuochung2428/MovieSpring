@@ -12,4 +12,6 @@ public interface SeatService {
     Seat saveSeat(Seat seat);
     void createSeatsForHall(Hall hall);
     void deleteSeat(Long id);
+
+    List<Long> getBookedSeats(Long showtimeId);
 }

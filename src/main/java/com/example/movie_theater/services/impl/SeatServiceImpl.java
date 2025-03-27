@@ -4,6 +4,7 @@ import com.example.movie_theater.dtos.SeatDTO;
 import com.example.movie_theater.entities.Hall;
 import com.example.movie_theater.entities.Seat;
 import com.example.movie_theater.entities.SeatTemplate;
+import com.example.movie_theater.repositories.BookingSeatRepository;
 import com.example.movie_theater.repositories.HallRepository;
 import com.example.movie_theater.repositories.SeatRepository;
 import com.example.movie_theater.repositories.SeatTemplateRepository;
@@ -22,6 +23,8 @@ public class SeatServiceImpl implements SeatService {
     private SeatTemplateRepository seatTemplateRepository;
     @Autowired
     private HallRepository hallRepository;
+    @Autowired
+    private BookingSeatRepository bookingSeatRepository;
 
 
     @Override
@@ -71,5 +74,10 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public void deleteSeat(Long id) {
         seatRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Long> getBookedSeats(Long showtimeId) {
+        return bookingSeatRepository.findBookedSeatsByShowtime(showtimeId);
     }
 }
