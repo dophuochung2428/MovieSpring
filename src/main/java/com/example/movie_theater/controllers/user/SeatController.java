@@ -29,6 +29,13 @@ public class SeatController {
     public ResponseEntity<List<SeatDTO>> getSeatsByHall(@PathVariable Long hallId) {
         return ResponseEntity.ok(seatService.getSeatByHall(hallId));
     }
+
+    @GetMapping("/{showtimeId}/booked-seats")
+    public ResponseEntity<List<Long>> getSeatsBookedByHall(@PathVariable Long showtimeId) {
+        List<Long> bookedSeats = seatService.getBookedSeats(showtimeId);
+        return ResponseEntity.ok(bookedSeats);
+    }
+
     @PostMapping
     public ResponseEntity<Seat> createSeat(@RequestBody Seat seat){
         if(seat == null){
