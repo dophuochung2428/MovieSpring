@@ -5,6 +5,7 @@ import com.example.movie_theater.dtos.PaymentInfoDTO;
 import com.example.movie_theater.config.Config;
 import com.example.movie_theater.dtos.PaymentDTO;
 import com.example.movie_theater.dtos.TransactionStatusDTO;
+import com.example.movie_theater.entities.Booking;
 import com.example.movie_theater.entities.Payment;
 import com.example.movie_theater.services.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,7 +73,7 @@ public class PaymentController {
 
             // Nếu thành công, redirect về trang FE hiển thị kết quả
             String redirectUrl = success
-                    ? "http://localhost:5173/HoldAndBook?status=success"
+                    ? "http://localhost:5173/HoldAndBook?status=success&txnRef=" + txnRef
                     : "http://localhost:5173/HoldAndBook?status=failed";
             return ResponseEntity.status(HttpStatus.FOUND)
                     .header(HttpHeaders.LOCATION, redirectUrl)
@@ -81,6 +82,18 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing payment");
         }
     }
+
+
+    @GetMapping("/transactionInfo/{txnRef}")
+    public ResponseEntity<?> getPaymentInfo(@PathVariable String txnRef) {
+        try {
+            Map<String, Object> paymentInfo = paymentService.getPaymentInfo(txnRef);
+            return ResponseEntity.ok(paymentInfo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
     private String extractBookingId(String orderInfo) {
         String[] parts = orderInfo.split(" - BookingID: ");

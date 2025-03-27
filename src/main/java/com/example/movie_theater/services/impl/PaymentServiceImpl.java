@@ -26,7 +26,6 @@ import java.util.Optional;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -188,6 +187,28 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         return false;
+    }
+
+    @Override
+    public Map<String, Object> getPaymentInfo(String txnRef) {
+        Payment payment = paymentRepository.findByTransactionId(txnRef)
+                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+
+        Booking booking = payment.getBooking();
+
+        // Trả về thông tin giao dịch dưới dạng Map
+        Map<String, Object> response = new HashMap<>();
+        response.put("transactionId", payment.getTransactionId());
+        response.put("status", payment.getStatus());
+        response.put("paymentMethod", payment.getPaymentMethod());
+        response.put("createdAt", payment.getCreatedAt());
+        response.put("bookingId", booking.getId());
+        response.put("userId", booking.getUser().getId());
+        response.put("showtimeId", booking.getShowtime().getId());
+        response.put("seats", booking.getBookingSeats());
+        response.put("price", booking.getPrice());
+
+        return response;
     }
 
 
