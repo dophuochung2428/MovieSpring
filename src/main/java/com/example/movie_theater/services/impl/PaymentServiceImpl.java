@@ -73,7 +73,12 @@ public class PaymentServiceImpl implements PaymentService {
 
         vnp_Params.put("vnp_OrderInfo", "Thanh toán đơn hàng: " + vnp_TxnRef + " - BookingID: " + bookingId);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", "https://moviespring.onrender.com/api/payments/payment-callback");
+        //gọi call back để xử lý data
+        //vnp_Params.put("vnp_ReturnUrl", "https://moviespring.onrender.com/api/payments/payment-callback");
+        //redirect về trang FE để nos xử l và gọi call back sau
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
+
+
 
         // Set thời gian
         // Set thời gian theo múi giờ Việt Nam
