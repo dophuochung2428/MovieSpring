@@ -196,6 +196,10 @@ public class PaymentServiceImpl implements PaymentService {
 
         Booking booking = payment.getBooking();
 
+        List<Long> seatIds = booking.getBookingSeats().stream()
+                .map(bookingSeat -> bookingSeat.getSeat().getId())
+                .toList();
+
         // Trả về thông tin giao dịch dưới dạng Map
         Map<String, Object> response = new HashMap<>();
         response.put("transactionId", payment.getTransactionId());
@@ -205,7 +209,7 @@ public class PaymentServiceImpl implements PaymentService {
         response.put("bookingId", booking.getId());
         response.put("userId", booking.getUser().getId());
         response.put("showtimeId", booking.getShowtime().getId());
-        response.put("seats", booking.getBookingSeats());
+        response.put("seats", seatIds);
         response.put("price", booking.getPrice());
 
         return response;
