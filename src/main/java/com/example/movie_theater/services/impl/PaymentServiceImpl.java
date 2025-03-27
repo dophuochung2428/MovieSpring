@@ -207,8 +207,8 @@ public class PaymentServiceImpl implements PaymentService {
         response.put("paymentMethod", payment.getPaymentMethod());
         response.put("createdAt", payment.getCreatedAt());
         response.put("bookingId", booking.getId());
-        response.put("userId", booking.getUser().getId());
-        response.put("showtimeId", booking.getShowtime().getId());
+        response.put("userEmail", booking.getUser().getEmail());
+        response.put("startTime", booking.getShowtime().getStartTime());
         response.put("seats", seatIds);
         response.put("price", booking.getPrice());
 
