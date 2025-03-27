@@ -25,4 +25,5 @@ public interface PaymentService {
 
     boolean handlePaymentCallback(String responseCode, String txnRef, String bookingId, String createDate);
 
+    Map<String, Object> getPaymentInfo(String txnRef);
 }
