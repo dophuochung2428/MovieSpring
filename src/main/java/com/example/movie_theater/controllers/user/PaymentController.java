@@ -9,6 +9,7 @@ import com.example.movie_theater.entities.Payment;
 import com.example.movie_theater.services.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -68,9 +69,14 @@ public class PaymentController {
         try {
             String bookingId = extractBookingId(orderInfo);
             boolean success = paymentService.handlePaymentCallback(responseCode, txnRef, bookingId, createDate);
-            return success
-                    ? ResponseEntity.ok("Payment successful, booking confirmed")
-                    : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Payment failed");
+
+            // Nếu thành công, redirect về trang FE hiển thị kết quả
+            String redirectUrl = success
+                    ? "http://localhost:5173/HoldAndBook?status=success"
+                    : "http://localhost:5173/HoldAndBook?status=failed";
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .header(HttpHeaders.LOCATION, redirectUrl)
+                    .build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing payment");
         }
