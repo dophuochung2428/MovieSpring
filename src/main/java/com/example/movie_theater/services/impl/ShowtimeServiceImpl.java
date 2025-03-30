@@ -1,5 +1,6 @@
 package com.example.movie_theater.services.impl;
 
+import com.example.movie_theater.dtos.ShowtimeDTO;
 import com.example.movie_theater.entities.Showtime;
 import com.example.movie_theater.repositories.ShowtimeRepository;
 import com.example.movie_theater.services.ShowtimeService;
@@ -31,5 +32,24 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     @Override
     public void deleteShowtime(Long id) {
         showtimeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ShowtimeDTO> getShowtimes(Long movieId, Long cinemaId){
+        List<Showtime> showtimes = showtimeRepository.findByMovieIdAndCinemaId(movieId, cinemaId);
+
+        return showtimes.stream().map(showtime -> {
+            int duration = showtime.getMovie().getDuration();
+            return new ShowtimeDTO(
+                    showtime.getId(),
+                    showtime.getMovie().getId(),
+                    showtime.getMovie().getTitle(),
+                    showtime.getHall().getId(),
+                    showtime.getHall().getName(),
+                    showtime.getStartTime(),
+                    showtime.getStartTime().plusMinutes(duration),
+                    showtime.getBasePrice()
+            );
+        }).toList();
     }
 }

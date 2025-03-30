@@ -1,5 +1,6 @@
 package com.example.movie_theater.controllers.user;
 
+import com.example.movie_theater.dtos.ShowtimeDTO;
 import com.example.movie_theater.entities.Showtime;
 import com.example.movie_theater.services.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,5 @@ public class ShowtimeController {
         showtimeService.deleteShowtime(id);
         return ResponseEntity.noContent().build();
     }
+
 }
