@@ -21,10 +21,21 @@ public class Movie {
     private String genre;
 
     private String director;
+    private String producer; // nhà sàn xuất
+    private String country;
     private int duration; // Thời lượng (phút)
-    private String description;
+
+    @Column(columnDefinition = "TEXT")
+    private String description; //moo tả
+
+    @Column(columnDefinition = "TEXT")
+    private String cast;
+
     private LocalDateTime releaseDate;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Showtime> showtimes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>(); // Danh sách ảnh & teaser
 }

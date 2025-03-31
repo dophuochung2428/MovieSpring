@@ -7,6 +7,7 @@ import com.example.movie_theater.entities.Movie;
 import com.example.movie_theater.entities.Showtime;
 import com.example.movie_theater.entities.Theater;
 import com.example.movie_theater.exception.DuplicateHallNameException;
+import com.example.movie_theater.mapper.ImageMapper;
 import com.example.movie_theater.mapper.TheaterMapper;
 import com.example.movie_theater.repositories.MovieRepository;
 import com.example.movie_theater.repositories.TheaterRepository;
@@ -53,9 +54,13 @@ public class TheaterServiceImpl implements TheaterService {
                         movie.getTitle(),
                         movie.getGenre(),
                         movie.getDirector(),
+                        movie.getProducer(),
+                        movie.getCountry(),
                         movie.getDuration(),
                         movie.getDescription(),
-                        movie.getReleaseDate()
+                        movie.getCast(),
+                        movie.getReleaseDate(),
+                        movie.getImages().stream().map(ImageMapper::toDTO).toList()
                         ))
                 .collect(Collectors.toList());
     }
