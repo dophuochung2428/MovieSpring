@@ -45,3 +45,8 @@ logging:
     org.springframework.security: DEBUG
     hibernate.SQL: DEBUG
     hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  api-key: ${CLOUDINARY_API_KEY}
+  api-secret: ${CLOUDINARY_API_SECRET}
