@@ -1,5 +1,6 @@
 package com.example.movie_theater.mapper;
 
+import com.example.movie_theater.dtos.ImageDTO;
 import com.example.movie_theater.dtos.MovieDTO;
 import com.example.movie_theater.entities.Movie;
 
@@ -13,9 +14,13 @@ public class MovieMapper {
                 movie.getTitle(),
                 movie.getGenre(),
                 movie.getDirector(),
+                movie.getProducer(),  // Nhà sản xuất
+                movie.getCountry(),   // Quốc gia
                 movie.getDuration(),
                 movie.getDescription(),
-                movie.getReleaseDate()
+                movie.getCast(), // Dàn diễn viên
+                movie.getReleaseDate(),
+                movie.getImages().stream().map(ImageMapper::toDTO).collect(Collectors.toList()) // Danh sách ảnh
         );
     }
 
@@ -31,10 +36,12 @@ public class MovieMapper {
         movie.setTitle(movieDTO.getTitle());
         movie.setGenre(movieDTO.getGenre());
         movie.setDirector(movieDTO.getDirector());
+        movie.setProducer(movieDTO.getProducer());
+        movie.setCountry(movieDTO.getCountry());
         movie.setDuration(movieDTO.getDuration());
         movie.setDescription(movieDTO.getDescription());
+        movie.setCast(movieDTO.getCast());
         movie.setReleaseDate(movieDTO.getReleaseDate());
         return movie;
     }
 }
-
