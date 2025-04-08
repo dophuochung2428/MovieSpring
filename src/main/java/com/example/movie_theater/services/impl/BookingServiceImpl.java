@@ -47,8 +47,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getBookingByUser(Long userId) {
-        return bookingRepository.findByUserId(userId);
+    public List<BookingDTO> getBookingByUser(Long userId) {
+        List<Booking> bookings = bookingRepository.findByUserId(userId);
+        bookings.forEach(booking -> booking.getBookingSeats().size());
+        return BookingMapper.toDTOList(bookings);
     }
 
     @Override

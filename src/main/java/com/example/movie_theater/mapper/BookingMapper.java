@@ -1,9 +1,14 @@
 package com.example.movie_theater.mapper;
 
 import com.example.movie_theater.dtos.BookingDTO;
+import com.example.movie_theater.dtos.TheaterDTO;
 import com.example.movie_theater.entities.Booking;
 import com.example.movie_theater.entities.Showtime;
+import com.example.movie_theater.entities.Theater;
 import com.example.movie_theater.entities.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookingMapper {
     public static BookingDTO toDTO(Booking booking) {
@@ -17,6 +22,11 @@ public class BookingMapper {
                 booking.getBookingTime(),
                 booking.getBookingStatus()
         );
+    }
+    public static List<BookingDTO> toDTOList(List<Booking> bookings) {
+        return bookings.stream()
+                .map(BookingMapper::toDTO)
+                .collect(Collectors.toList());
     }
     public static Booking toEntity(BookingDTO bookingDTO, User user, Showtime showtime) {
         Booking booking = new Booking();

@@ -196,8 +196,8 @@ public class PaymentServiceImpl implements PaymentService {
 
         Booking booking = payment.getBooking();
 
-        List<Long> seatIds = booking.getBookingSeats().stream()
-                .map(bookingSeat -> bookingSeat.getSeat().getId())
+        List<String> seats = booking.getBookingSeats().stream()
+                .map(bookingSeat -> bookingSeat.getSeat().getSeatNumber())
                 .toList();
 
         // Trả về thông tin giao dịch dưới dạng Map
@@ -209,7 +209,7 @@ public class PaymentServiceImpl implements PaymentService {
         response.put("bookingId", booking.getId());
         response.put("userEmail", booking.getUser().getEmail());
         response.put("startTime", booking.getShowtime().getStartTime());
-        response.put("seats", seatIds);
+        response.put("seats", seats);
         response.put("price", booking.getPrice());
 
         return response;

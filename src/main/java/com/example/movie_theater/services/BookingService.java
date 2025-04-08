@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookingService {
     List<Booking> getAllBookings();
     BookingDTO getBookingById(Long id);
-    List<Booking> getBookingByUser(Long userId);
+    List<BookingDTO> getBookingByUser(Long userId);
     Booking createBooking(Booking booking);
     BookingDTO holdSeats(BookingHoldRequestDTO request, Long userId);
     void cancelExpiredBookings();
