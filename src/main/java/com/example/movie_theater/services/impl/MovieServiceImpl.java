@@ -55,8 +55,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<MovieDTO> searchMovies(String title) {
-
-        return MovieMapper.toDTOList(movieRepository.findByTitleContainingIgnoreCase(title));
+        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(title);
+        return MovieMapper.toDTOList(movies);
     }
 
     @Override

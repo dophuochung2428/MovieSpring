@@ -33,8 +33,8 @@ public class MovieController {
 
     @GetMapping("/search")
     public ResponseEntity<List<MovieDTO>> searchMovies(@RequestParam String title) {
-
-        return ResponseEntity.ok(movieService.searchMovies(title));
+        List<MovieDTO> movieDTOS = movieService.searchMovies(title);
+        return ResponseEntity.ok(movieDTOS);
     }
 
     @GetMapping("/{movieId}/theaters")
