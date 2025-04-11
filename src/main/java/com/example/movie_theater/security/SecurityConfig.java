@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:5173")); // Cho phép frontend gọi API
+                    config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000")); // Cho phép frontend gọi API
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Các phương thức HTTP
                     config.setAllowCredentials(true); // Cho phép gửi cookies hoặc token
                     config.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Cho phép các header
