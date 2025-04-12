@@ -2,6 +2,7 @@ package com.example.movie_theater.dtos;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +17,6 @@ public class MovieDTO {
     private int duration;     // Thời lượng (phút)
     private String description; // Mô tả
     private String cast; // Dàn diễn viên
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
     private List<ImageDTO> images; // Danh sách ảnh
 }

@@ -1,5 +1,6 @@
 package com.example.movie_theater.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import jakarta.persistence.*;
@@ -31,7 +32,7 @@ public class Movie {
     @Column(columnDefinition = "TEXT")
     private String cast;
 
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Showtime> showtimes = new ArrayList<>();
