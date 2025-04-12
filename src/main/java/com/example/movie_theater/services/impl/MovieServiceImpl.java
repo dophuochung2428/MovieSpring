@@ -36,6 +36,12 @@ public class MovieServiceImpl implements MovieService {
         existingMovie.setTitle(movieDTO.getTitle());
         existingMovie.setGenre(movieDTO.getGenre());
         existingMovie.setDuration(movieDTO.getDuration());
+        existingMovie.setDirector(movieDTO.getDirector());
+        existingMovie.setProducer(movieDTO.getProducer());
+        existingMovie.setCountry(movieDTO.getCountry());
+        existingMovie.setDescription(movieDTO.getDescription());
+        existingMovie.setCast(movieDTO.getCast());
+        existingMovie.setReleaseDate(movieDTO.getReleaseDate());
 
         return MovieMapper.toDTO(movieRepository.save(existingMovie));
     }
